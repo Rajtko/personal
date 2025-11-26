@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alex Krajec | Engineer & Founder</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
 
         :root {
@@ -238,7 +238,8 @@
         .discord-name-group {
             display: flex;
             align-items: center;
-            gap: 10px;
+            /* ZMENA: Upravená medzera pre lepšie zarovnanie ikony */
+            gap: 5px; 
             margin-bottom: 5px;
             cursor: pointer;
             padding: 8px 15px;
@@ -253,8 +254,14 @@
             font-weight: 700;
             color: var(--text-main);
         }
+        /* ZMENA: Pre Font Awesome ikonu namiesto obrázku */
         .discord-verify {
-            width: 24px; height: 24px;
+            font-size: 1.5rem; /* Prispôsobená veľkosť ikony */
+            color: var(--accent-blue); /* Modrá farba */
+            line-height: 1; /* Pre lepšie vertikálne zarovnanie */
+            /* Pôvodné width/height pre img už nie sú potrebné */
+            width: auto;
+            height: auto;
         }
         .discord-copy-label {
              font-size: 0.9rem;
@@ -474,14 +481,14 @@
     <div id="discord-modal-backdrop" class="modal-backdrop">
         <div class="modal-content discord-content">
             <div class="discord-profile">
-                <!-- Cesta k obrázku profilovky -->
-                <img src="image/dclogo.png" alt="Discord Profile Picture" class="discord-avatar">
+                <!-- ZMENA: Nová Discord profilovka z URL -->
+                <img src="https://cdn.discordapp.com/attachments/744593479946076322/1443343686510448851/645bb036c27e58b769990b5f5404c729.jpg?ex=6928ba0e&is=6927688e&hm=5e6b8c5481c14947e87d5eddf8e4a67a12e7014467ce555cf25caa96185d0cd4&" alt="Discord Profile Picture" class="discord-avatar">
                 
                 <!-- Kopírovateľná oblasť mena -->
                 <div id="discord-copy-area" class="discord-name-group" data-copy="rajtko">
                     <span class="discord-name">rajtko</span>
-                    <!-- Cesta k obrázku verify ikony -->
-                    <img src="image/verify.png" alt="Verified Badge" class="discord-verify">
+                    <!-- ZMENA: Font Awesome ikona namiesto lokálneho obrázku -->
+                    <i class="fas fa-circle-check discord-verify"></i>
                 </div>
                 
                 <p class="discord-copy-label">Click on username to copy it!</p>
@@ -680,7 +687,7 @@
         <p>&copy; 2025 Alex Krajec. Designed in Slovakia.</p>
     </footer>
 
-    <!-- JavaScript pre kopírovanie do schránky a modaly -->
+    <!-- JavaScript pre kopírovanie do schránky a modaly (bezo zmeny) -->
     <script>
         /**
          * Zobrazí notifikáciu s danou správou.
