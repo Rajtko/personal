@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Krajec | Engineer & Founder</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+
+        :root {
+            --bg-color: #080808;
+            --text-main: #ffffff;
+            --text-muted: #a1a1aa;
+            --card-bg: rgba(20, 20, 20, 0.6);
+            --border: rgba(255, 255, 255, 0.08);
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --accent-green: #10b981;
+            --popover-bg: #1e1e1e;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            line-height: 1.6;
+        }
+
+
+        .blob-cont {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            background: #080808;
+        }
+        
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.3;
+            animation: move 40s infinite alternate;
+        }
+
+        .blob-1 {
+            background: var(--accent-blue);
+            width: 600px; height: 600px;
+            top: -150px; left: -150px;
+        }
+
+        .blob-2 {
+            background: var(--accent-purple);
+            width: 500px; height: 500px;
+            bottom: -100px; right: -100px;
+            animation-delay: -20s;
+        }
+
+        @keyframes move {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(100px, 100px) scale(1.1); }
+        }
+
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+
+        header {
+            margin-bottom: 60px;
+            animation: fadeUp 1s ease-out;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            color: var(--accent-blue);
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        
+        .badge-dot {
+            width: 8px; height: 8px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            margin-right: 8px;
+            box-shadow: 0 0 10px var(--accent-blue);
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #fff, #aaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+
+        .bio-content p {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 10px;
+            max-width: 650px; 
+        }
+
+
+        .divider {
+            height: 1px;
+            width: 100%;
+            max-width: 650px;
+            background: linear-gradient(to right, rgba(59, 130, 246, 0.8), rgba(139, 92, 246, 0.2), transparent);
+            margin: 20px 0 30px 0;
+        }
+
+
+        .cta-group {
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: var(--accent-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.3s;
+            cursor: pointer; 
+        }
+
+        .cta-btn:hover {
+            background-color: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        .cta-btn i {
+            margin-right: 8px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .social-btn {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px; height: 38px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            cursor: pointer;
+        }
+
+        .social-btn:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* --- NOVÉ MODAL/DIALOG STYLY --- */
+        .modal-backdrop {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7); 
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px); 
+            z-index: 100;
+            display: none; 
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-backdrop.visible {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: var(--card-bg); 
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-backdrop.visible .modal-content {
+             transform: translateY(0);
+        }
+        
+        /* Discord specific styles */
+        .discord-profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .discord-avatar {
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid var(--accent-blue);
+        }
+        .discord-name-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            padding: 8px 15px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+        .discord-name-group:hover {
+             background-color: rgba(255, 255, 255, 0.05);
+        }
+        .discord-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+        .discord-verify {
+            width: 24px; height: 24px;
+        }
+        .discord-copy-label {
+             font-size: 0.9rem;
+             color: var(--text-muted);
+             margin-top: 10px;
+        }
+        
+        /* Email specific styles */
+        .email-option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .email-option:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        .email-option i {
+             font-size: 1.2rem;
+             margin-right: 15px;
+             color: var(--accent-green);
+        }
+        .email-info span {
+             display: block;
+             line-height: 1.3;
+        }
+        .email-info .type {
+             font-size: 0.8rem;
+             color: var(--text-muted);
+        }
+        .email-info .address {
+             font-size: 1rem;
+             font-weight: 500;
+        }
+        
+        /* Collaborate Modal Link Styles */
+        /* Poznámka: Odkaz s triedou 'copy-only' bude mať pointer, ale už nebude prechádzať na mailto */
+        .collaborate-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            text-decoration: none;
+            transition: background 0.3s, border-color 0.3s;
+            font-weight: 500;
+        }
+
+        .collaborate-link:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: var(--accent-blue);
+        }
+
+        .collaborate-link i {
+            font-size: 1.2rem;
+            margin-right: 15px;
+            color: var(--accent-purple); 
+        }
+        /* --- Koniec nových MODAL/DIALOG STYLOV --- */
+
+        /* --- Ostatné pôvodné štýly zostávajú nezmenené --- */
+
+        .section {
+            margin-top: 60px;
+        }
+        
+        .section-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            transition: 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover {
+            border-color: rgba(255,255,255,0.2);
+            background: rgba(30, 30, 30, 0.7);
+            transform: scale(1.005);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-left { flex: 1; }
+
+        .role {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .company {
+            font-size: 0.95rem;
+            color: var(--accent-blue);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .hypersonic { color: var(--accent-purple); }
+        .project-link { color: var(--accent-green); font-size: 0.9rem; margin-top: 10px; display: inline-block; }
+
+        .desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .year {
+            font-size: 0.8rem;
+            color: #666;
+            background: rgba(255,255,255,0.05);
+            padding: 5px 10px;
+            border-radius: 8px;
+            white-space: nowrap;
+            margin-left: 20px;
+        }
+
+        /* --- Custom Notification Style --- */
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent-green); 
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.5s, transform 0.5s;
+            pointer-events: none; 
+            font-weight: 600;
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+        /* -------------------------------- */
+
+
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background: rgba(161, 161, 170, 0.1);
+            color: var(--text-main);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(161, 161, 170, 0.15);
+            transition: background 0.3s;
+        }
+
+        .skill-tag:hover {
+            background: rgba(161, 161, 170, 0.2);
+        }
+
+
+        @media (max-width: 700px) {
+            .card { flex-direction: column; }
+            .year { margin-left: 0; margin-top: 15px; align-self: flex-start; }
+            h1 { font-size: 2.2rem; }
+            .cta-group { flex-direction: column; align-items: flex-start; }
+            .cta-btn { width: 100%; justify-content: center; margin-bottom: 10px; }
+            .modal-content { max-width: 85%; }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Notifikácia -->
+    <div id="copy-notification" class="notification"></div>
+    
+    <!-- Discord Modal (celá obrazovka s blurom) -->
+    <div id="discord-modal-backdrop" class="modal-backdrop">
+        <div class="modal-content discord-content">
+            <div class="discord-profile">
+                <!-- Cesta k obrázku profilovky -->
+                <img src="image/dclogo.png" alt="Discord Profile Picture" class="discord-avatar">
+                
+                <!-- Kopírovateľná oblasť mena -->
+                <div id="discord-copy-area" class="discord-name-group" data-copy="rajtko">
+                    <span class="discord-name">rajtko</span>
+                    <!-- Cesta k obrázku verify ikony -->
+                    <img src="image/verify.png" alt="Verified Badge" class="discord-verify">
+                </div>
+                
+                <p class="discord-copy-label">Click on username to copy it!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Email Modal (celá obrazovka s blurom) -->
+    <div id="email-modal-backdrop" class="modal-backdrop">
+        <div class="modal-content email-content">
+            <h3 style="margin-bottom: 15px; text-align: center; color: var(--accent-blue);">Contact Options</h3>
+            
+            <!-- Možnosť 1: Osobný email -->
+            <div class="email-option copyable-email" data-copy="rajtkoq@gmail.com">
+                <i class="fas fa-user"></i>
+                <div class="email-info">
+                    <span class="type">Personal Email</span>
+                    <span class="address">rajtkoq@gmail.com</span>
+                </div>
+            </div>
+
+            <!-- Možnosť 2: Firemný email -->
+            <div class="email-option copyable-email" data-copy="contact.noctiq@gmail.com">
+                <i class="fas fa-briefcase"></i>
+                <div class="email-info">
+                    <span class="type">Business / Contact Email</span>
+                    <span class="address">contact.noctiq@gmail.com</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Collaborate Modal (NOVÝ - Quick Link Hub) -->
+    <div id="collaborate-modal-backdrop" class="modal-backdrop">
+        <div class="modal-content collaborate-content">
+            <h3 style="margin-bottom: 20px; text-align: center; color: var(--accent-purple);"><i class="fas fa-satellite-dish"></i> Quick Contact Hub</h3>
+            <p style="color: var(--text-muted); text-align: center; margin-bottom: 25px; font-size: 0.95rem;">
+                Choose the best way to reach me for business, project inquiries, or long-term partnerships.
+            </p>
+            
+            <!-- Odkaz 1: Firemný Email (ZMENENÉ na kopírovanie) -->
+            <!-- Pridana trieda copy-only a data-copy, odstránený mailto: -->
+            <a href="#" class="collaborate-link copy-only" data-copy="contact.noctiq@gmail.com">
+                <i class="fas fa-paper-plane"></i> Copy Business Email
+            </a>
+            
+            <!-- Odkaz 2: LinkedIn (Profesionálny) - Aktualizovaný URL -->
+            <a href="https://www.linkedin.com/in/alex-krajec-953655333/" target="_blank" class="collaborate-link">
+                <i class="fab fa-linkedin"></i> Professional Profile (LinkedIn)
+            </a>
+            
+            <!-- Odkaz 3: GitHub (Kód) - ODSTRÁNENÝ -->
+
+            <!-- Odkaz 4: Noctiq Website - Aktualizovaný URL -->
+            <a href="https://rajtko.github.io/NOCTIQ/" target="_blank" class="collaborate-link">
+                <i class="fas fa-cube"></i> Visit Noctiq Software Website
+            </a>
+
+        </div>
+    </div>
+    
+    <!-- Zvyšok pôvodnej stránky (Blobs, Kontajner, Header, atď.) -->
+    <div class="blob-cont">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <main class="container">
+        
+        <header>
+            <div class="badge">
+                <div class="badge-dot"></div> Open for opportunities
+            </div>
+            <h1>Alex Krajec</h1>
+            
+            <div class="bio-content">
+                <p>
+                    I am a 14 years old Software Engineer and eSport Manager with 2,5+ years experience from Slovakia.
+                </p>
+                <p>
+                    I specialize in Esports management and software engineer, Google Developer Program member, and founder of a Slovak software company, overseeing strategic growth, operations, and competitive development.
+                </p>
+                <p>
+                    Currently, Iam Founder of <span style="color: var(--accent-blue);">Noctiq Software, Havrix eSports</span> and <span style="color: var(--accent-purple);">SkillHub</span>.
+                </p>
+            </div>
+            
+            <div class="divider"></div>
+
+            <div class="cta-group">
+                
+                <!-- CTA Button - "Start a Project / Contact" s otvorením modalu -->
+                <a href="#" id="cta-collaborate-btn" class="cta-btn"><i class="fas fa-rocket"></i> Start a Project / Contact</a>
+                
+                <div class="social-links">
+                    
+                    <!-- Email Icon - len prepínač modalu -->
+                    <a href="#" id="email-toggle-btn" class="social-btn"><i class="fas fa-envelope"></i></a>
+                    
+                    <!-- Discord Icon - len prepínač modalu -->
+                    <a href="#" id="discord-toggle-btn" class="social-btn"><i class="fab fa-discord"></i></a>
+
+                </div>
+            </div>
+        </header>
+        
+        <!-- Zvyšok obsahu zostáva nezmenený -->
+        <div class="section">
+            <div class="section-title">Core Technologies</div>
+            <div class="skills-grid">
+                <span class="skill-tag">JavaScript / TypeScript</span>
+                <span class="skill-tag">Node.js</span>
+                <span class="skill-tag">Lua</span>
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">React / Next.js</span>
+                <span class="skill-tag">SQL / PostgreSQL</span>
+                <span class="skill-tag">Docker</span>
+                <span class="skill-tag">Linux / SysAdmin</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Selected Projects</div>
+            <div class="grid">
+
+                <div class="card">
+                    <div class="card-left">
+                        <div class="role">Noctiq Software</div>
+                        <div class="company" style="color: var(--accent-green);"><i class="fas fa-cube"></i> CEO & Founder</div>
+                        <p class="desc">
+                            My primary company, focused on creating scalable, custom-built software solutions for businesses, managing the full product lifecycle from architecture to deployment.
+                        </p>
+                        <a href="https://rajtko.github.io/NOCTIQ/" class="project-link"><i class="fas fa-external-link-alt"></i> Visit Noctiq Website</a>
+                    </div>
+                    <div class="year">2024 - Present</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-left">
+                        <div class="role">SkillHub Counter-Strike 2 Project</div>
+                        <div class="company" style="color: var(--accent-green);"><i class="fas fa-bolt"></i>Chief Executive Officer</div>
+                        <p class="desc">
+                         SkillHub is the most used free CS2 Discord bot with over 2.5k users. It provides player ratings, detailed stats, grenade lineups, a teammate finder, and realtime skin price checks across Steam and external markets. Tournaments and giveaways coming soon.
+                        </p>
+                         </div>
+                    <div class="year">2024 - Present</div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Work Experience</div>
+            <div class="grid">
+
+                <div class="card">
+                    <div class="card-left">
+                        <div class="role">Founder</div>
+                        <div class="company"><i class="fas fa-cube"></i>HyperSonic Labs</div>
+                        <p class="desc">
+                            Established a development lab focused on high-performance community tools. Responsible for core engineering and system design.
+                        </p>
+                    </div>
+                    <div class="year">2023 - Present</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-left">
+                        <div class="role">CEO & Founder</div>
+                        <div class="company" style="color: #f59e0b;"><i class="fas fa-gamepad"></i>Havrix eSports</div>
+                        <p class="desc">
+                            Professional esports organization with a management team of 3+ years’ experience, overseeing strategic growth, operations, and competitive development.  
+                        </p>
+                    </div>
+                    <div class="year">2025 - Present</div>
+                </div>
+
+                <div class="card" style="opacity: 0.8;">
+                    <div class="card-left">
+                        <div class="role">RL Academy Manager, RLCS EU Manager, Apex Legends General Manager</div>
+                        <div class="company" style="color: #aaa;"><i class="fas fa-code-branch"></i>Overlooked Ent. & eSports</div>
+                        <p class="desc">
+                            Lead competitive operations across Rocket League and Apex Legends divisions, managing player development, team logistics, and daily performance structures while coordinating with leagues, coaches, and staff to ensure smooth, high-level esport operations.
+                        </p>
+                    </div>
+                    <div class="year">2024 - 2025</div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </main>
+    
+    <footer style="margin-top: 60px; padding-bottom: 20px; color: #444; font-size: 0.8rem; text-align: center;">
+        <p>&copy; 2025 Alex Krajec. Designed in Slovakia.</p>
+    </footer>
+
+    <!-- JavaScript pre kopírovanie do schránky a modaly -->
+    <script>
+        /**
+         * Zobrazí notifikáciu s danou správou.
+         * @param {string} message Správa, ktorá sa má zobraziť.
+         */
+        function showNotification(message) {
+            const notification = document.getElementById('copy-notification');
+            notification.textContent = message;
+            notification.classList.remove('show');
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 1); 
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000); 
+        }
+
+        /**
+         * Skopíruje text do schránky a zobrazí notifikáciu.
+         * @param {string} text Text, ktorý sa má skopírovať.
+         * @param {string} type Typ (Discord/Email) pre custom notifikáciu
+         */
+        async function copyToClipboard(text, type = 'text') {
+            try {
+                await navigator.clipboard.writeText(text);
+                if(type === 'discord') {
+                    showNotification(`Discord name "${text}" copied!`);
+                } else if (type === 'email') {
+                    showNotification(`Email "${text}" copied!`);
+                } else {
+                    showNotification('Copied to clipboard!');
+                }
+                
+            } catch (err) {
+                console.error('Could not copy text: ', err);
+                showNotification('Copy failed. Please try manually.'); 
+            }
+        }
+        
+        /**
+         * Skryje všetky otvorené modaly.
+         */
+        function hideAllModals() {
+             document.querySelectorAll('.modal-backdrop.visible').forEach(m => {
+                m.classList.remove('visible');
+             });
+             // Umožní scrollovanie tela stránky po zatvorení modalu
+             document.body.style.overflow = ''; 
+        }
+
+        /**
+         * Zobrazí konkrétny modal a skryje všetky ostatné.
+         * @param {HTMLElement} modal Element modalu
+         * @param {Event} e Event kliknutia (na zabránenie defaultnej akcie)
+         */
+        function showModal(modal, e) {
+             e.preventDefault();
+             hideAllModals(); 
+             modal.classList.add('visible');
+             // Zablokuje scrollovanie tela stránky
+             document.body.style.overflow = 'hidden'; 
+        }
+        
+        // Pridanie event listenerov po načítaní DOM
+        document.addEventListener('DOMContentLoaded', () => {
+            // Togglovacie tlačidlá
+            const discordToggleBtn = document.getElementById('discord-toggle-btn');
+            const emailToggleBtn = document.getElementById('email-toggle-btn');
+            const collaborateToggleBtn = document.getElementById('cta-collaborate-btn');
+
+            // Modaly
+            const discordModal = document.getElementById('discord-modal-backdrop');
+            const emailModal = document.getElementById('email-modal-backdrop');
+            const collaborateModal = document.getElementById('collaborate-modal-backdrop');
+            
+            // Interaktívne elementy v modaloch
+            const discordCopyArea = document.getElementById('discord-copy-area');
+            const emailCopyOptions = document.querySelectorAll('.copyable-email');
+            
+            // NOVÉ: Kopírovacie elementy v Collaborate Modali
+            const collabCopyItems = document.querySelectorAll('#collaborate-modal-backdrop .copy-only');
+
+
+            // 1. Logika pre zobrazenie Modalov
+            if (discordToggleBtn) {
+                discordToggleBtn.addEventListener('click', (e) => showModal(discordModal, e));
+            }
+
+            if (emailToggleBtn) {
+                emailToggleBtn.addEventListener('click', (e) => showModal(emailModal, e));
+            }
+
+            // Logika pre CTA tlačidlo "Start a Project / Contact"
+            if (collaborateToggleBtn) {
+                 collaborateToggleBtn.addEventListener('click', (e) => showModal(collaborateModal, e));
+            }
+
+
+            // 2. Logika pre kopírovanie v Discord Modali
+            if (discordCopyArea) {
+                discordCopyArea.addEventListener('click', (e) => {
+                    e.stopPropagation(); 
+                    const textToCopy = discordCopyArea.getAttribute('data-copy');
+                    copyToClipboard(textToCopy, 'discord');
+                });
+            }
+
+            // 3. Logika pre kopírovanie v Email Modali
+            emailCopyOptions.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    const textToCopy = item.getAttribute('data-copy');
+                    copyToClipboard(textToCopy, 'email');
+                    hideAllModals(); 
+                });
+            });
+            
+            // NOVÉ: Logika pre kopírovanie v Collaborate Modali (iba tlačidlo "Copy Business Email")
+            collabCopyItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault(); // Zastaví presmerovanie
+                    e.stopPropagation(); // Zabráni zatvoreniu modalu pri kliknutí na element v ňom
+                    const textToCopy = item.getAttribute('data-copy');
+                    copyToClipboard(textToCopy, 'email');
+                    // Môže zostať otvorený alebo ho môžeme zatvoriť (tu ho nechávam otvorený, aby mohol kliknúť na LinkedIn)
+                    // Ak chceš zatvoriť, použi: hideAllModals();
+                });
+            });
+
+
+            // 4. Logika pre zatvorenie modalu pri kliknutí na tmavé pozadie (backdrop)
+            document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
+                backdrop.addEventListener('click', (e) => {
+                    // Ak sa kliklo priamo na backdrop a nie na obsah modalu
+                    if (e.target === backdrop) {
+                        hideAllModals();
+                    }
+                });
+            });
+            
+            // 5. Logika pre zatvorenie "Collaborate" modalu po kliknutí na externý link
+            // Ak klikne na link, ktorý neobsahuje triedu 'copy-only' (čiže LinkedIn/Noctiq), zatvor modal.
+            document.querySelectorAll('#collaborate-modal-backdrop .collaborate-link:not(.copy-only)').forEach(link => {
+                link.addEventListener('click', () => {
+                     // Externý odkaz sa otvorí, modal sa zatvorí
+                     setTimeout(hideAllModals, 100); 
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
